@@ -36,7 +36,8 @@ class HouseBuilder{
     _house = this;
   }
 
-  factory HouseBuilder() => _house ??= HouseBuilder._init();
+  factory HouseBuilder() 
+    => _house ??= HouseBuilder._init();
 
   void setMainMaterial(MainMaterial m) {
     mainMaterial = m;
