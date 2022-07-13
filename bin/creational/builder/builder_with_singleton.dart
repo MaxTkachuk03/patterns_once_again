@@ -4,7 +4,22 @@ void main(List<String> args) {
   houseBuilder.setPrice(20000000);
   houseBuilder.build();
   
-  print(houseBuilder.toString());
+  print(houseBuilder);
+
+  print("+"*50);
+
+  HouseBuilder newhouseBuilder = HouseBuilder();
+  newhouseBuilder.setMainMaterial(MainMaterial.concrete);
+  newhouseBuilder.setPrice(20000000);
+  newhouseBuilder.setSize(Size.large);
+  newhouseBuilder.build();
+
+  print(newhouseBuilder);
+
+  print("+"*50);
+
+  print("Перевіримо чи екземпляр дійсно один: ");
+  print(identical(houseBuilder, newhouseBuilder));
 }
 
 enum Size{ large, small, middle}
@@ -12,21 +27,27 @@ enum Size{ large, small, middle}
 enum MainMaterial{ brick, concrete, tree}
 
 class HouseBuilder{
-  HouseBuilder house = HouseBuilder();
-  late Size size;
+  static HouseBuilder? _house;
+  Size size = Size.small;
   MainMaterial? mainMaterial;
   int? price;
 
+  HouseBuilder._init(){
+    _house = this;
+  }
+
+  factory HouseBuilder() => _house ??= HouseBuilder._init();
+
   void setMainMaterial(MainMaterial m) {
-    house.mainMaterial = m;
+    mainMaterial = m;
   }
 
   void setPrice(int p) {
-    house.price = p;
+    price = p;
   }
 
   void setSize(Size s) {
-    house.size = s;
+    size = s;
   }
 
   void build() {
