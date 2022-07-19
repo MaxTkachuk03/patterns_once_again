@@ -24,6 +24,7 @@ class SmartHomeFacade{
     heating.turnoff();
     cinema.turnoff();
   }
+  
   void home(){
     security.turnoff();
     light.turnon();

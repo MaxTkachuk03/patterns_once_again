@@ -1,5 +1,5 @@
 void main(List<String> args) {
-  HowToMove go = WalkMove("first");
+  HowToMove go = WalkMove(" ");
   HowToMove sky = FlyMove(30);
   HowToMove water = SwimMove(3);
 

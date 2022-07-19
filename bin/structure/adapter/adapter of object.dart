@@ -54,6 +54,7 @@ class ImagePNGAdapter implements IIconAdapter{
   @override
   ImageBITMAP getImage() {
     String imagelist = icon.iconPNGFormat();
+    print(imagelist.split(": ")[1]);
     return ImageBITMAP(
       whichFormat: imagelist.substring(8,11),//.split("format:")[1].toString(),
       name: imagelist.substring(23,26),
