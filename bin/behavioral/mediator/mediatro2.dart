@@ -1,8 +1,12 @@
 void main(List<String> args) {
-  Mediator mediator = ConcreteMediator();
+  ConcreteMediator mediator = ConcreteMediator();
   Components admin = Admin(mediator);
   Components user  = User(mediator);
   Components developer = Developer(mediator);
+
+  mediator.addComponent(developer);
+  mediator.addComponent(admin);
+  mediator.addComponent(user);
 
   developer.sendMessage("Всі неполадки виправлено!");
   print("="*20);
@@ -16,57 +20,71 @@ abstract class Mediator{
 }
 
 class ConcreteMediator implements Mediator{
+  List<Components> comp = [];
+
+  void addComponent(Components component){
+    comp.add(component);
+  }
 
   @override
   void notify(String message, Components component) {
-    if(component is Admin){
-      User(this).getMessage(message);
-    }
-    if(component is Developer){
-      Admin(this).getMessage(message);
-      User(this).getMessage(message);
-    }
-    if(component is User){
-      User(this).getMessage(message);
+    for(Components c in comp){
+      if(c!= component){
+        c.getMessage(message);
+      }
     }
   }
 }
 
 abstract class Components{
-  Mediator mediator;
-
-  Components(this.mediator);
-
-  void sendMessage(String message){
-    mediator.notify(message, this);
-  }
+  void sendMessage(String message);
 
   void getMessage(String message);
 }
 
-class Admin extends Components{
-  Admin(super.mediator);
+class Admin implements Components{
+  Mediator mediator;
+  Admin(this.mediator);
 
   @override
   void getMessage(String message) {
     print("Адмін отримав повідомлення: $message");
   }
+  
+  @override
+  void sendMessage(String message) {
+    mediator.notify(message, this);
+  }
 }
 
-class User extends Components{
-  User(super.mediator);
+class User implements Components{
+  Mediator mediator;
+
+  User(this.mediator);
 
   @override
   void getMessage(String message) {
     print("Користувач отримав повідомлення: $message");
   }
+  
+  @override
+  void sendMessage(String message) {
+    mediator.notify(message, this);
+  }
 }
 
-class Developer extends Components{
-  Developer(super.mediator);
+class Developer implements Components{
+  Mediator mediator;
+
+  Developer(this.mediator);
 
   @override
   void getMessage(String message) {
     print("Розробник отримав повідомлення: $message");
+  }
+  
+  @override
+  void sendMessage(String message) {
+    mediator.notify(message, this);
   }
 }
