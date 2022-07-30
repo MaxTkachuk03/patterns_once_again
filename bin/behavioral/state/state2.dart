@@ -34,6 +34,7 @@ class TrafficLights {
       light = Red();
     }
   }
+  
   void switching(){
     light?.color();
   }
