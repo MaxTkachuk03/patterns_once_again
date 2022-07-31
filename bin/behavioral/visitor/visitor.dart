@@ -20,8 +20,8 @@ void main(List<String> args) {
 
 //! Visitor
 abstract class IClient{
-  void credit(Credit credit);
-  void deposit(Deposit deposit);
+  String credit(Credit credit);
+  String deposit(Deposit deposit);
 }
 
 //! Concrete Visitor
@@ -32,13 +32,13 @@ class Person implements IClient{
   Person({required this.name, required this.age});
 
   @override
-  void credit(Credit credit) {
-    print("Фізична особа $name віком $age бере кредит під 15%");
+  String credit(Credit credit) {
+    return "Фізична особа $name віком $age";
   }
 
   @override
-  void deposit(Deposit deposit) {
-    print("Фізична особа $name віком $age кладе гроші на депозит під 10%");
+  String deposit(Deposit deposit) {
+    return "Фізична особа $name віком $age";
   }
 }
 
@@ -50,13 +50,13 @@ class Company implements IClient{
   Company({required this.name, required this.number});
 
   @override
-  void credit(Credit credit) {
-    print("Юридична особа $name з номером державної реєстрації $number бере кредит під 25%");
+  String credit(Credit credit) {
+    return "Юридична особа $name з номером державної реєстрації $number";
   }
 
   @override
-  void deposit(Deposit deposit) {
-    print("Юридична особа $name з номером державної реєстрації $number кладе гроші на депозит під 15%");
+  String deposit(Deposit deposit) {
+    return "Юридична особа $name з номером державної реєстрації $number";
   }
 }
 
@@ -69,7 +69,7 @@ abstract class BankSystem{
 class Credit implements BankSystem{
   @override
   void accept(IClient visitor) {
-    visitor.credit(this);
+    print("${visitor.credit(this)} бере кредит під 20%");
   }
 }
 
@@ -77,7 +77,7 @@ class Credit implements BankSystem{
 class Deposit implements BankSystem{
   @override
   void accept(IClient visitor) {
-    visitor.deposit(this);
+    print("${visitor.deposit(this)} кладе гроші на депозит під 10%");
   }
 }
 
