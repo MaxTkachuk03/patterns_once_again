@@ -29,7 +29,10 @@ class Person implements IClient{
   int age;
   String name;
 
-  Person({required this.name, required this.age});
+  Person({
+    required this.name, 
+    required this.age
+  });
 
   @override
   String credit(Credit credit) {
@@ -47,7 +50,10 @@ class Company implements IClient{
   String name;
   int number;
 
-  Company({required this.name, required this.number});
+  Company({
+    required this.name, 
+    required this.number
+  });
 
   @override
   String credit(Credit credit) {
